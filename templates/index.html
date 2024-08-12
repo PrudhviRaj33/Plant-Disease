@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Disease Identifier</title>
+    <style>
+         body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            text-align: center;
+        } 
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            max-width: 1000px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        .option-container {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        input[type="file"], input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        input[type="submit"] {
+            background-color: #27ae60;
+            color: #fff;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #2ecc71;
+        }
+        .camera-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #camera {
+            width: 350px;
+            height: 350px;
+            border: 1px solid black;
+            margin-bottom: 10px;
+        }
+        h2, h3 {
+            color: #34495e;
+            margin-top: 20px;
+        }
+        p {
+            color: #7f8c8d;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-top: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .image {
+            height: 30%;
+            width: 30%;
+        }
+        ul {
+            text-align: left;
+            font-size: large;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Upload or Capture an Image of Your Plant</h1>
+        
+        <div class="option-container">
+            <!-- Upload Option -->
+            <div>
+                <h3>Upload from File</h3>
+                <form action="/" method="post" enctype="multipart/form-data">
+                    <input type="file" name="file" id="file">
+                    <input type="submit" value="Upload">
+                </form>
+            </div>
+            
+            <!-- Camera Option
+            <div class="camera-container">
+                <h3>Capture from Camera</h3>
+                <div id="camera"></div>
+                <button type="button" onclick="take_snapshot()">Take Snapshot</button>
+                <form id="image-form" action="/" method="post">
+                    <input type="hidden" name="image_data" id="image_data" />
+                    <input type="submit" value="Submit Image" />
+                </form>
+                <h2>Captured Image:</h2>
+                    <div id="results"></div>
+            </div>
+        </div> -->
+
+        {% if filename %}
+            <h2>Uploaded Image:</h2>
+            <img src="{{ url_for('display_image', filename=filename) }}" alt="Uploaded Image" class="image">
+            <h3>Disease Identified: {{ disease }}</h3>
+            <div>{{ solution | safe }}</div>
+        {% endif %}
+    </div>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.min.js"></script>
+    <script>
+        Webcam.set({
+            width: 350,
+            height: 350,
+            image_format: 'jpeg',
+            jpeg_quality: 90
+        });
+        Webcam.attach('#camera');
+
+        // function take_snapshot() {
+        //     Webcam.snap(function(data_uri) {
+        //         // Display the captured image for debugging
+        //         document.getElementById('captured_image').src = data_uri;
+        //         document.getElementById('captured_image').style.display = 'block';
+                
+        //         // Set the captured image to the hidden input field
+        //         document.getElementById('camera_image').value = data_uri;
+        //         // Automatically submit the form after capturing the image
+        //         document.getElementById('camera-form').submit();
+        //     });
+        function take_snapshot() {
+            Webcam.snap(function(data_uri) {
+                document.getElementById("results").innerHTML = 
+                '<img src="'+data_uri+'"/>';
+            });
+        }
+                // Function to transfer image data from div to input
+
+    </script> -->
+</body>
