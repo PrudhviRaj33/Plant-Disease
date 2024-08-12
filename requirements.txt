@@ -4,3 +4,4 @@ pillow
 gradio
 requests
 tensorflow
+tf-keras
