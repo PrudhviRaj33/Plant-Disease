@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plant Disease Identifier</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-         body {
+        body {
             font-family: 'Poppins', sans-serif;
             background-color: #f4f4f4;
             color: #333;
@@ -14,150 +15,319 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100%;
+            min-height: 100vh;
             text-align: center;
-        } 
+        }
 
         .container {
+            width: 100%;
+            max-width: 1000px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 100%;
-            height: 100%;
-            max-width: 1000px;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            justify-content: center;
         }
+
         h1 {
             color: #2c3e50;
-            margin-bottom: 20px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
         }
-        .option-container {
-            display: flex;
-            justify-content: space-around;
-            width: 100%;
-            margin-bottom: 20px;
-        }
+
         input[type="file"], input[type="submit"] {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
+            max-width: 400px;
+            padding: 15px;
+            margin-bottom: 20px;
             border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
+            border-radius: 8px;
             font-size: 16px;
         }
+
         input[type="submit"] {
             background-color: #27ae60;
             color: #fff;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
+
         input[type="submit"]:hover {
             background-color: #2ecc71;
         }
-        .camera-container {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        #camera {
-            width: 350px;
-            height: 350px;
-            border: 1px solid black;
-            margin-bottom: 10px;
-        }
-        h2, h3 {
+
+        /* h2, h3 {
             color: #34495e;
-            margin-top: 20px;
-        }
+            margin-top: 30px;
+        } */
+
         p {
             color: #7f8c8d;
-            font-size: 16px;
-            margin-top: 10px;
+            font-size: 18px;
+            margin-top: 15px;
         }
+
         img {
             max-width: 100%;
-            border-radius: 8px;
+            border-radius: 12px;
             margin-top: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
         .image {
-            height: 30%;
-            width: 30%;
+            height: auto;
+            width: 50%;
         }
-        ul {
-            text-align: left;
-            font-size: large;
+
+/* Disease Info */
+.disease-info {
+    font-size: 1.2em;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+/* Causes Section */
+h2 {
+    font-size: 1.8em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Unordered List */
+ul {
+    list-style: none;
+    padding-left: 0;
+    text-align: left;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+ul li {
+    background: #e9f5e9;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border-left: 5px solid #28a745;
+    font-size: 16px;
+    color: #333;
+}
+
+
+        /* Loading overlay */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
         }
+
+        .loading-overlay.show {
+            display: flex;
+        }
+
+        /* Icon Animation */
+        .icon-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 80px;
+            height: 80px;
+            position: relative;
+        }
+
+        .icon {
+            font-size: 50px;
+            color: #3498db;
+            position: absolute;
+            opacity: 0;
+            animation: moveIcon 3s infinite;
+        }
+
+        .icon:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .icon:nth-child(2) {
+            animation-delay: 1s;
+        }
+
+        .icon:nth-child(3) {
+            animation-delay: 2s;
+        }
+
+        @keyframes moveIcon {
+            0%, 100% {
+                opacity: 0;
+                transform: translateX(0);
+            }
+            50% {
+                opacity: 1;
+                transform: translateX(-30px);
+            }
+        }
+
+        /* Blur effect when loading */
+        .blurred {
+            filter: blur(5px);
+            pointer-events: none;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 50px;
+            padding: 20px 0;
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer p {
+            margin: 0;
+            font-size: 14px;
+        }
+        .result-section {
+            display: none;
+        }
+
+    button {
+    background-color: #27ae60; /* Primary color */
+    color: #fff; /* Text color */
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin: 0 10px; /* Space between buttons */
+    font-family: 'Poppins', sans-serif;
+}
+
+button:hover {
+    background-color: #2ecc71; /* Hover color */
+    transform: scale(1.05); /* Slightly increase button size on hover */
+}
+
+button:focus {
+    outline: none; /* Remove default focus outline */
+}
+
+/* Specific Button Styles (Optional) */
+/* button:nth-of-type(1) {
+    background-color: #3498db; 
+}
+
+button:nth-of-type(1):hover {
+    background-color: #2980b9;
+}
+
+button:nth-of-type(2) {
+    background-color: #e67e22; 
+}
+
+button:nth-of-type(2):hover {
+    background-color: #d35400;
+}
+
+button:nth-of-type(3) {
+    background-color: #f39c12; 
+}
+
+button:nth-of-type(3):hover {
+    background-color: #e67e22;
+}
+
+button:nth-of-type(4) {
+    background-color: #9b59b6; 
+}
+
+button:nth-of-type(4):hover {
+    background-color: #8e44ad;
+} */
+
+
+
     </style>
+    <script>
+        function showLoading() {
+            document.querySelector('.loading-overlay').classList.add('show');
+            document.querySelector('.container').classList.add('blurred');
+        }
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.result-section');
+            sections.forEach(section => section.style.display = 'none');
+            
+            // Show the selected section
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.style.display = 'block';
+            }
+        }
+
+    </script>
 </head>
 <body>
+    <div class="loading-overlay">
+        <div class="icon-container">
+            <div class="icon">🌿</div>
+            <div class="icon">🌱</div>
+            <div class="icon">🍃</div>
+        </div>
+    </div>
+
     <div class="container">
-        <h1>Upload or Capture an Image of Your Plant</h1>
+        <h1>Plant Disease Identifier</h1>
         
         <div class="option-container">
             <!-- Upload Option -->
             <div>
                 <h3>Upload from File</h3>
-                <form action="/" method="post" enctype="multipart/form-data">
-                    <input type="file" name="file" id="file">
+                <form action="/" method="post" enctype="multipart/form-data" onsubmit="showLoading()">
+                    <input type="file" name="file" id="file" required>
                     <input type="submit" value="Upload">
                 </form>
             </div>
-            
-            <!-- Camera Option
-            <div class="camera-container">
-                <h3>Capture from Camera</h3>
-                <div id="camera"></div>
-                <button type="button" onclick="take_snapshot()">Take Snapshot</button>
-                <form id="image-form" action="/" method="post">
-                    <input type="hidden" name="image_data" id="image_data" />
-                    <input type="submit" value="Submit Image" />
-                </form>
-                <h2>Captured Image:</h2>
-                    <div id="results"></div>
-            </div>
-        </div> -->
 
-        {% if filename %}
-            <h2>Uploaded Image:</h2>
-            <img src="{{ url_for('display_image', filename=filename) }}" alt="Uploaded Image" class="image">
-            <h3>Disease Identified: {{ disease }}</h3>
-            <div>{{ solution | safe }}</div>
-        {% endif %}
+            {% if filename %}
+                <h2>Uploaded Image:</h2>
+                <img src="{{ url_for('display_image', filename=filename) }}" alt="Uploaded Image" class="image">
+                <h3>Disease Identified: {{ disease }}</h3>
+                <div>
+                    <button onclick="showSection('causes')">Show Causes</button>
+                    <button onclick="showSection('cures')">Show Cures</button>
+                    <button onclick="showSection('medicines')">Show Medicines</button>
+                    <button onclick="showSection('tips')">Show Tips</button>
+                </div>
+                <div id="causes" class="result-section">
+                    <h2>Causes</h2>
+                    {{ solution['causes'] | safe }}
+                </div>
+                <div id="cures" class="result-section">
+                    <h2>Cures</h2>
+                    {{ solution['cures'] | safe }}
+                </div>
+                <div id="medicines" class="result-section">
+                    <h2>Medicines</h2>
+                    {{ solution['medicines'] | safe }}
+                </div>
+                <div id="tips" class="result-section">
+                    <h2>Tips for Growing</h2>
+                    {{ solution['tips'] | safe }}
+                </div>
+            {% endif %}
+        </div>
     </div>
-
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.min.js"></script>
-    <script>
-        Webcam.set({
-            width: 350,
-            height: 350,
-            image_format: 'jpeg',
-            jpeg_quality: 90
-        });
-        Webcam.attach('#camera');
-
-        // function take_snapshot() {
-        //     Webcam.snap(function(data_uri) {
-        //         // Display the captured image for debugging
-        //         document.getElementById('captured_image').src = data_uri;
-        //         document.getElementById('captured_image').style.display = 'block';
-                
-        //         // Set the captured image to the hidden input field
-        //         document.getElementById('camera_image').value = data_uri;
-        //         // Automatically submit the form after capturing the image
-        //         document.getElementById('camera-form').submit();
-        //     });
-        function take_snapshot() {
-            Webcam.snap(function(data_uri) {
-                document.getElementById("results").innerHTML = 
-                '<img src="'+data_uri+'"/>';
-            });
-        }
-                // Function to transfer image data from div to input
-
-    </script> -->
-</body>
+</html>
