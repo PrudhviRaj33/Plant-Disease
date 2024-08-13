@@ -5,3 +5,4 @@ gradio
 requests
 tensorflow
 tf-keras
+beautifulsoup4
